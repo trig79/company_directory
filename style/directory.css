@@ -1,0 +1,429 @@
+/* :root {
+} */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+h4 {
+  margin-bottom: unset;
+}
+
+@media screen and (orientation: portrait) {
+  .card-header {
+    background-color: slategray;
+  }
+  .card-header button {
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    color: gold;
+  }
+
+  .dropdown_menu_employees {
+    width: 60%;
+    font-size: 1.6rem;
+    margin: 0% 20%;
+  }
+
+  .Employee_Retrieve img {
+    width: 30%;
+    height: auto;
+    /* center image */
+    display: block;
+    margin: 2% auto;
+  }
+  .Employee_Retrieve table {
+    width: 100%;
+    border: none;
+  }
+  #employee_table_search tr {
+    width: 100%;
+    display: table;
+  }
+  .Employee_Retrieve table th {
+    padding: 0.5% 2%;
+    width: 30%;
+    text-align: right;
+    color: darkslategrey;
+  }
+
+  #add_table,
+  #update_table,
+  #delete_table,
+  #vacation_table {
+    width: 100%;
+    font-size: 1.6rem;
+    margin-top: 2%;
+  }
+  /* #add_table tr {
+        width: 100%;
+        display: table;
+    } */
+  #add_table th,
+  #update_table th,
+  #delete_table th,
+  #vacation_table th {
+    padding: 0.5% 2%;
+    width: 30%;
+    text-align: right;
+    color: darkslategrey;
+  }
+  .Employee_Retrieve table td,
+  #add_table td,
+  #update_table td,
+  #delete_table td,
+  #vacation_table td {
+    padding: 0.5% 1%;
+    width: 70%;
+  }
+  #add_table input,
+  #add_table select,
+  #update_table input,
+  #update_table select {
+    width: 100%;
+  }
+  #add_emp_table_div button,
+  #update_emp_table_div button,
+  #delete_emp_table_div button,
+  #vacation_emp_table_div button {
+    width: 40%;
+    margin: 2% 30% 2% 30%;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: slategray;
+    border: 1px solid slategray;
+    background-color: gold;
+    padding: 3%;
+    border-radius: 10px;
+  }
+  #add_emp_status_message,
+  #delete_emp_status_message,
+  #vacation_emp_status_message {
+    color: red;
+  }
+  #add_emp_status_message a {
+    color: slategray;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .employee_search_team_members_tables {
+    margin-top: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .employee_search_team_members_tables table {
+    table-layout: fixed;
+    width: 250px;
+    margin: 1% 1%;
+  }
+  .employee_search_team_members_tables td {
+    overflow: hidden;
+  }
+  .employee_search_team_members_tables img {
+    width: 50px;
+  }
+  #table_img {
+    width: 55px;
+    padding-right: 10%;
+  }
+  #add_emp_table_div button,
+  #update_emp_table_div button,
+  #delete_emp_table_div button,
+  #vacation_emp_table_div button {
+    width: 30%;
+    margin: 1% 35% 1% 35%;
+    padding: 1%;
+  }
+
+  #vacation_planned_table {
+    text-align: center;
+  }
+
+  #vacation_planned_table h3 {
+    color: slategray;
+  }
+  #vac_table {
+    width: 90%;
+    margin-left: 5%;
+    font-size: 1.2rem;
+  }
+
+  #vac_table td h4 {
+    font-size: 1.2rem;
+  }
+
+  #vac_table th h4 {
+    font-weight: 400;
+  }
+
+  #vac_table td {
+    padding: 0.5% 1%;
+  }
+  #vac_table th {
+    background-color: slategray;
+    color: gold;
+    padding: 1%;
+    border: none;
+  }
+
+  #vac_table button {
+    color: slategray;
+    border: 1px solid slategray;
+    background-color: gold;
+    padding: 10%;
+    border-radius: 10%;
+    cursor: pointer;
+  }
+  .vac_col2,
+  .vac_col3 {
+    width: 30%;
+  }
+  #vacation_planned_table p {
+    text-align: left;
+  }
+  #table_blank {
+    background-color: white !important;
+  }
+}
+
+@media screen and (min-width: 600px) and (orientation: portrait) {
+  .Employee_Retrieve img {
+    width: 20%;
+    max-width: 100px;
+    height: auto;
+    /* center image */
+    display: block;
+    margin: 2% auto;
+  }
+
+  .Employee_Retrieve table td,
+  #add_table td,
+  #update_table td,
+  #delete_table td,
+  #vacation_table td {
+    padding: 0.5% 1%;
+    width: 40%;
+  }
+  #add_table input,
+  #add_table select,
+  #update_table input,
+  #update_table select {
+    width: 60%;
+  }
+}
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+/*              LANDSCAPE                                                        */
+/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+
+@media screen and (orientation: landscape) {
+  .card-header {
+    background-color: slategray;
+  }
+  .card-header button {
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    color: gold;
+  }
+
+  .dropdown_menu_employees {
+    width: 60%;
+    font-size: 1.6rem;
+    margin: 0% 20%;
+  }
+
+  .Employee_Retrieve img {
+    width: 30%;
+    max-width: 100px;
+    height: auto;
+    /* center image */
+    display: block;
+    margin: 2% auto;
+  }
+  .Employee_Retrieve table {
+    width: 100%;
+    border: none;
+  }
+  #employee_table_search tr {
+    width: 100%;
+    display: table;
+  }
+  .Employee_Retrieve table th {
+    padding: 0.5% 2%;
+    width: 30%;
+    text-align: right;
+    color: darkslategrey;
+  }
+
+  #add_table,
+  #update_table,
+  #delete_table,
+  #vacation_table {
+    width: 100%;
+    font-size: 1.6rem;
+    margin-top: 2%;
+  }
+  /* #add_table tr {
+        width: 100%;
+        display: table;
+    } */
+  #add_table th,
+  #update_table th,
+  #delete_table th,
+  #vacation_table th {
+    padding: 0.5% 2%;
+    width: 30%;
+    text-align: right;
+    color: darkslategrey;
+  }
+  .Employee_Retrieve table td,
+  #add_table td,
+  #update_table td,
+  #delete_table td,
+  #vacation_table td {
+    padding: 0.5% 1%;
+    width: 40%;
+  }
+  #add_table input,
+  #add_table select,
+  #update_table input,
+  #update_table select {
+    width: 60%;
+  }
+  #add_emp_table_div button,
+  #update_emp_table_div button,
+  #delete_emp_table_div button,
+  #vacation_emp_table_div button {
+    width: 40%;
+    margin: 2% 30% 2% 30%;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: slategray;
+    border: 1px solid slategray;
+    background-color: gold;
+    padding: 1%;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  #add_emp_status_message,
+  #delete_emp_status_message,
+  #vacation_emp_status_message {
+    color: red;
+  }
+  #add_emp_status_message a {
+    color: slategray;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .employee_search_team_members_tables {
+    margin-top: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .employee_search_team_members_tables table {
+    table-layout: fixed;
+    width: 250px;
+    margin: 1% 1%;
+  }
+  .employee_search_team_members_tables td {
+    overflow: hidden;
+  }
+  .employee_search_team_members_tables img {
+    width: 50px;
+  }
+  #table_img {
+    width: 55px;
+    padding-right: 10%;
+  }
+  #vac_table {
+    width: 90%;
+    margin-left: 5%;
+    font-size: 1.2rem;
+  }
+
+  #vac_table td h4 {
+    font-size: 1.2rem;
+  }
+
+  #vac_table th h4 {
+    font-weight: 400;
+  }
+
+  #vac_table td {
+    padding: 0.5% 1%;
+  }
+  #vac_table th {
+    background-color: slategray;
+    color: gold;
+    padding: 1%;
+    border: none;
+  }
+
+  #vac_table button {
+    color: slategray;
+    border: 1px solid slategray;
+    background-color: gold;
+    padding: 10%;
+    border-radius: 10%;
+    cursor: pointer;
+  }
+  .vac_col2,
+  .vac_col3 {
+    width: 30%;
+  }
+  #vacation_planned_table p {
+    text-align: left;
+  }
+  #table_blank {
+    background-color: white !important;
+  }
+}
+
+@media screen and (min-width: 1200px) and (orientation: landscape) {
+  /* body {
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+    } */
+  .card-body {
+    width: 60%;
+    margin-left: 20%;
+  }
+  #accordion {
+    width: 100%;
+  }
+
+  #vac_table {
+    width: 50%;
+    margin-left: 25%;
+    font-size: 2rem;
+  }
+  #vac_table td h4 {
+    font-size: 1.5rem;
+  }
+  #vacation_planned_table h3 {
+    text-align: center;
+  }
+  /* #tree_div {
+        width: 50%;
+        background-color: aqua;
+        
+    } */
+}

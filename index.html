@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style/directory.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <title>Martin Durrant | Full Stack Software Developer</title>
+</head>
+<body>
+
+
+<div id="accordion">
+
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Search For An Employee
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+
+        <select  id="ddm_employees_search" class="dropdown_menu_employees" name="dropdown-menu-list"></select></tr>
+        
+        <section class="Employee_Retrieve">
+            <!-- <img src="./images/headIcon.svg" alt="headshot_icon">
+            <table id="employee_table_search">
+            </table> -->
+        </section>
+
+        <section class="employee_search_team_members"></section>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingSix">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            Search For An Employees By Department
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+        <div class="card-body">
+
+        <select  id="ddm_location_search" class="dropdown_menu_jobs" name="dropdown-menu-list"></select></tr>
+        
+        <!-- <section class="Employee_Retrieve"> -->
+            <!-- <img src="./images/headIcon.svg" alt="headshot_icon">
+            <table id="employee_table_search">
+            </table> -->
+        <!-- </section> -->
+
+        <section class="employee_search_team_members"></section>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Add an Employee
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          <div id="add_emp_table_div">
+
+        <table id="add_table">    
+        <tr>    <th><h4>First Name</h4></th>
+                <td><input id="add_forenames" type="text"></td>
+        </tr>
+        <tr>    <th><h4>Surname</h4></th>
+                <td>    <input id="add_surname" type="text"></td>
+        </tr>
+        <tr>    <th><h4>Department</h4></th>
+                <td>    <select id="" class="dropdown_menu_departments" name="dropdown_menu_departments"> </select></td>
+        </tr>
+        <tr>    <th><h4>Job Title</h4></th>
+                <td>    <select id="" class="dropdown_menu_jobs" name="dropdown_menu_jobs">   </select></td>
+        </tr>
+        <tr>    <th><h4>Email</h4></th>
+                <td>    <input  id="add_email" type="text"></td>
+        </tr>
+    </table>
+
+    <button id="add_employee" type="submit" value="submit" onclick="addEmp()">Submit</button>
+    <div id="add_emp_status_message"></div>
+
+  </div>
+
+  </div>
+      </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Update Employee Record
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+
+          <select  id="ddm_employees_update" class="dropdown_menu_employees" name="dropdown-menu-list"></select></tr>
+
+          <div id="update_emp_table_div">
+          </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="card">
+        <div class="card-header" id="headingFour">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              Delete Employee
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+          <div class="card-body">
+
+            <select  id="ddm_employees_delete" class="dropdown_menu_employees" name="dropdown-menu-list"></select></tr>
+
+            <div id="delete_emp_table_div"></div>
+            <div id="delete_emp_status_message"></div>
+
+            
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingFive">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            Vacation Planning
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+        <div class="card-body">
+
+          <select  id="ddm_employees_vacation" class="dropdown_menu_employees" name="dropdown-menu-list"></select></tr>
+
+          <div id="vacation_emp_table_div"></div>
+          <div id="vacation_emp_status_message"></div>
+          <div id="vacation_planned_table"></div>
+
+          
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<div id="tree_div"> </div>
+
+
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>  
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- mine -->
+  <script src="./js/directory.js" type="text/javascript"></script>
+  <script src="./js/api.js" type="text/javascript"></script>
+
+</body>
+</html>
