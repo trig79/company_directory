@@ -384,7 +384,7 @@ const employeeTeamMembersAJAX = (depID, searchCall) => {
             const classChecker = !searchCall ? '.employee_search_team_members' : '.department_search_team_members'
 
             //reset div to empty
-            $(classChecker).html('') 
+             $(classChecker).html('') 
             
             //add heading
             $(classChecker).append(`
@@ -401,7 +401,7 @@ const employeeTeamMembersAJAX = (depID, searchCall) => {
                 let email = !result[i]['email']         ? 'No Info Avlb' : result[i]['email'];
                 
 
-                $(classChecker).append(`
+                $('.employee_search_team_members_tables').append(`
                     <table class="team_member_info">
                     <tr>
                     <td rowspan='4' id="table_img"><img src="./images/headIcon.svg" alt="headshot_icon"></td>
