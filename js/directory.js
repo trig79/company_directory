@@ -17,9 +17,14 @@ ddmEmployeesDelete.addEventListener('change', (event) => {
 });
 const ddmEmployeesVacation = document.querySelector('#ddm_employees_vacation');
 ddmEmployeesVacation.addEventListener('change', (event) => {  
-  console.log(event)    
+  //console.log(event)    
   singleEmployeeRetrieval(event.target.value, 'vacation')
   vacationFetchAJAX(event.target.value)
+});
+const ddmDepartmentSearch = document.querySelector('#ddm_department_search');
+ddmDepartmentSearch.addEventListener('change', (event) => {  
+  console.log(event)    
+  employeeTeamMembersAJAX(event.target.value, 'depSearch')
 });
 
 
@@ -91,7 +96,7 @@ const datePicker = () => {
       defaultDate: 0 }
   );
 }
-
+//grabs vacation dates and formats them for SQL
 const vacationEmp = () => {
   let startDate = $('#vacStart').val()
   let startDateSQL = startDate.split("-").reverse().join("-");

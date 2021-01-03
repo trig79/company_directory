@@ -371,7 +371,7 @@ const deleteEmployeeAJAX = (formdata) => {
     })
 }
 
-const employeeTeamMembersAJAX = (depID) => {
+const employeeTeamMembersAJAX = (depID, searchCall) => {
     
     $.ajax({
         url: "./php/employeeTeamMembers.php",
@@ -381,10 +381,13 @@ const employeeTeamMembersAJAX = (depID) => {
             
         success: function(result) {
             console.log(result);   //Bug Testing
+            const classChecker = !searchCall ? '.employee_search_team_members' : '.department_search_team_members'
+
             //reset div to empty
-            $('.employee_search_team_members').html('')
+            $(classChecker).html('') 
+            
             //add heading
-            $('.employee_search_team_members').append(`
+            $(classChecker).append(`
                     <br>
                     <h3>Fellow Team Members.....</h3>
                     <div class="employee_search_team_members_tables"></div>
@@ -398,7 +401,7 @@ const employeeTeamMembersAJAX = (depID) => {
                 let email = !result[i]['email']         ? 'No Info Avlb' : result[i]['email'];
                 
 
-                $('.employee_search_team_members_tables').append(`
+                $(classChecker).append(`
                     <table class="team_member_info">
                     <tr>
                     <td rowspan='4' id="table_img"><img src="./images/headIcon.svg" alt="headshot_icon"></td>
@@ -415,6 +418,7 @@ const employeeTeamMembersAJAX = (depID) => {
                     </table>
                 `)
             }
+        
         },
         
         error: function(xhr, status, error){
