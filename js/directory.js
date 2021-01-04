@@ -23,8 +23,13 @@ ddmEmployeesVacation.addEventListener('change', (event) => {
 });
 const ddmDepartmentSearch = document.querySelector('#ddm_department_search');
 ddmDepartmentSearch.addEventListener('change', (event) => {  
-  console.log(event)    
+  //console.log(event)    
   employeeTeamMembersAJAX(event.target.value, 'depSearch')
+});
+const ddmRegionSearch = document.querySelector('#ddm_region_search');
+ddmRegionSearch.addEventListener('change', (event) => {  
+  //console.log(event)    
+  employeeTeamMembersAJAX(event.target.value, 'regionSearch')
 });
 
 
@@ -36,12 +41,12 @@ const addEmp = () => {
     'forenames'   : $('#add_forenames').val(),
     'surname'     : $('#add_surname').val(),
     'jobTitle'    : $('.dropdown_menu_jobs').val(),
-    'depId'       : $('.dropdown_menu_departments').val(),
+    'depId'       : $('#dropdown_menu_departments_add').val(),
     'email'       : $('#add_email').val(),
     'submitValue' : $('#add_employee').val(), 
     };
 
-    console.log(addEmpData)
+   //console.log(addEmpData)
     addEmployeeAJAX(addEmpData)
 }
 
@@ -57,7 +62,7 @@ const updateEmp = () => {
     'submitValue' : $('#update_employee').val(), 
     };
 
-    console.log(updateEmpData)
+   //console.log(updateEmpData)
     updateEmployeeAJAX(updateEmpData)
 }
 
@@ -74,7 +79,7 @@ const deleteEmp = () => {
   'submitValue' : $('#delete_employee').val(), 
   };
 
-  console.log(deleteEmpData)
+ //console.log(deleteEmpData)
   deleteEmployeeAJAX(deleteEmpData)
 }
 
@@ -87,7 +92,7 @@ const addFormReset = () => {
   $('#add_table :input').val('');
   $('.dropdown_menu_departments').prop('selectedIndex', 0);
   $('.dropdown_menu_jobs').prop('selectedIndex', 0);
-  $('#add_emp_status_message').html('')
+  //$('#add_emp_status_message').html('').fadeIn(0)
 }
 
 const datePicker = () => {

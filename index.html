@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-    <link rel="manifest" href="../site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -61,17 +61,32 @@
 
         <select  id="ddm_department_search" class="dropdown_menu_departments dropdown_style" name="dropdown-menu-list"></select></tr>
         
-        <!-- <section class="Employee_Retrieve"> -->
-            <!-- <img src="./images/headIcon.svg" alt="headshot_icon">
-            <table id="employee_table_search">
-            </table> -->
-        <!-- </section> -->
-
         <section class="department_search_team_members"></section>
 
         </div>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-header" id="headingSeven">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+            Search For Employees By Region
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+        <div class="card-body">
+
+        <select  id="ddm_region_search" class="dropdown_menu_region dropdown_style" name="dropdown-menu-list"></select></tr>
+        
+        <section class="region_search_team_members"></section>
+
+        </div>
+      </div>
+    </div>
+
 
 
     <div class="card">
@@ -94,7 +109,7 @@
                 <td>    <input id="add_surname" type="text"></td>
         </tr>
         <tr>    <th><h4>Department</h4></th>
-                <td>    <select id="" class="dropdown_menu_departments" name="dropdown_menu_departments"> </select></td>
+                <td>    <select id="dropdown_menu_departments_add" class="dropdown_menu_departments" name="dropdown_menu_departments"> </select></td>
         </tr>
         <tr>    <th><h4>Job Title</h4></th>
                 <td>    <select id="" class="dropdown_menu_jobs" name="dropdown_menu_jobs">   </select></td>

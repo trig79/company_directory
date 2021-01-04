@@ -32,12 +32,14 @@ if (empty($_POST['depId']) || $department == 'dropdown_start')
 if (empty($_POST['email']))
     $errors['email'] = 'Email is required.';
 
-// if there are items in our errors array, return those errors. If okay update DB.
+// Nested IF Statement 
+
+//1. check for errors from above
 if ( ! empty($errors)) {
     $data['success'] = false;
     $data['errors']  = $errors;
 } else if ($submitValue == 'submit'){
-
+//2. check for duplication on DB
         $sql = "SELECT * FROM personnel 
                 WHERE firstName = '$forenames' 
                 AND lastName = '$lastname'
@@ -50,10 +52,11 @@ if ( ! empty($errors)) {
         $count  = mysqli_num_rows($result);
         
         if($count > 0 ) {
+            //3. if duplication found return error
                 $data['success'] = false;
                 $data['errors']  = 'duplication';
         } else {
-        
+        //4. if no duplication found insert entry
         $stmt = $conn->prepare("INSERT INTO  personnel (firstName, lastName, jobTitle, email, departmentID)
         VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $forenames , $lastname, $jobTitle, $email, $department);
@@ -66,6 +69,7 @@ if ( ! empty($errors)) {
         }
 
 } else if ($submitValue == 'submitFinal') {
+    //5. insert duplicate entry in to DB after user accepts warning message
         $stmt = $conn->prepare("INSERT INTO  personnel (firstName, lastName, jobTitle, email, departmentID)
         VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $forenames , $lastname, $jobTitle, $email, $department);
@@ -83,6 +87,3 @@ if ( ! empty($errors)) {
 echo json_encode($data);
 
 mysqli_close($conn);
-
-?>
-
