@@ -64,9 +64,6 @@ if (mysqli_num_rows($result) > 0) {
 	$data['personnel']['message'] = 'Nothing Retrieved from DB';
 }
 
-
-
-
 $encode = json_encode($data, JSON_UNESCAPED_UNICODE);
 echo $encode;
 

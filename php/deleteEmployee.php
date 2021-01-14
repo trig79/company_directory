@@ -4,7 +4,6 @@ include(dirname(__DIR__) . '/php/dbConnection.php');
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
-//values passed from ajax
 $id             = $_POST['stfID'];
 
 $data           = [];      // array to pass back data
@@ -22,7 +21,6 @@ if (!empty($errors)) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
 
-    //$rowCount = $stmt->num_rows();
     $rowCount = $stmt->affected_rows;
 
     if ($rowCount > 0) {

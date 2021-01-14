@@ -5,7 +5,6 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
 $id = $_POST['id'];
-//$call = $_POST['call'];
 
 //DB Fetch Data
 $sql = "SELECT  p.id AS stfID, p.firstName, p.lastName, p.jobTitle, p.email, p.departmentID,

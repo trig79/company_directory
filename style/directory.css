@@ -226,3 +226,36 @@ table.table .avatar {
 .modal form label {
   font-weight: normal;
 }
+
+/* SCREEN ADJUSTMENTS */
+
+#employee_table_tablet_screen {
+  display: none;
+}
+#employee_table_mobile_screen {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  #employee_table_desktop_screen {
+    display: none;
+  }
+  #employee_table_tablet_screen {
+    display: unset;
+  }
+  .table-wrapper {
+    min-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  #employee_table_tablet_screen {
+    display: none;
+  }
+  #employee_table_mobile_screen {
+    display: unset;
+  }
+  .table-wrapper {
+    min-width: 100%;
+  }
+}

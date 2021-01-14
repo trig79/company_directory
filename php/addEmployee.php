@@ -13,7 +13,6 @@ $department     = $_POST['depID'];
 
 $data           = array();      // array to pass back data
 
-// Nested IF Statement 
 
 $sql = "SELECT * FROM personnel 
         WHERE firstName = '$firstname' 

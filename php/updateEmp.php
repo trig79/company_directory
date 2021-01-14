@@ -12,7 +12,6 @@ $jobTitle       = $_POST['jobTitle'];
 $email          = $_POST['email'];
 $depID          = $_POST['depID'];
 
-//$errors         = array();      // array to hold validation errors
 $data           = array();      // array to pass back data
 $updates        = array();      // array to hold column data to be updated
 
