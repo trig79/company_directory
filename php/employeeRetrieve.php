@@ -1,11 +1,11 @@
 <?php
-include(dirname(__DIR__).'/php/dbConnection.php');
+include(dirname(__DIR__) . '/php/dbConnection.php');
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
 $id = $_POST['id'];
-$call = $_POST['call'];
+//$call = $_POST['call'];
 
 //DB Fetch Data
 $sql = "SELECT  p.id AS stfID, p.firstName, p.lastName, p.jobTitle, p.email, p.departmentID,
@@ -16,25 +16,22 @@ $sql = "SELECT  p.id AS stfID, p.firstName, p.lastName, p.jobTitle, p.email, p.d
 		INNER JOIN location l ON l.id = d.locationID 
 		WHERE p.id = '$id'";
 
-$result = mysqli_query($conn, $sql); 		
+$result = mysqli_query($conn, $sql);
 
 $arr = [];
 
-if (mysqli_num_rows($result) > 0){
+if (mysqli_num_rows($result) > 0) {
 
-	while($row = mysqli_fetch_assoc($result)) {
+	while ($row = mysqli_fetch_assoc($result)) {
 		array_push($arr, $row);
-    };
-    array_push($arr, $call);
+	};
+
 	$encode = json_encode($arr, JSON_UNESCAPED_UNICODE);
 	echo $encode;
-
 } else {
-	$temp['error'] = 'error'; 
+	$temp['error'] = 'No Record Found';
 	$encode = json_encode($temp, JSON_UNESCAPED_UNICODE);
 	echo $encode;
 }
 
 mysqli_close($conn);
-
-?>

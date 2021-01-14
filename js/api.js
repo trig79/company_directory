@@ -1,8 +1,286 @@
 window.addEventListener('load', () => {
 
-  employeeDropdownMenu()   
-  jobDepDropdownMenu()
+    const formData = {
+        'id' : '',
+        'call'  : 'onload'
+      }
+      empDataTable(formData)
+    depDropDownAJAX()
 })
+
+
+
+//Generates Full Employee List On Screen > called at onload
+const empDataTable = (formData) => {
+    
+    $.ajax({
+        url: "./php/empDataTable.php",
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+
+        success: function(result) {
+           console.log(result);   //Bug Testing
+
+            if(result['message'] == 'error') {
+                //this is a fail safe, but its primariliy in place to reset page when users deselect option from title dropdown menus
+                window.location.reload()
+
+            } else {
+            let employeeList;
+
+            for(i=0; i < result['data'].length; i++) {
+                employeeList += `
+                <tr>
+                
+                
+                <td> 
+                <a href="#edit_employee_modal" class="edit testing" data-toggle="modal" onclick="employeeRetrieve('${result['data'][i]['stfID']}')"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" onclick="deleteModal('${result['data'][i]['stfID']}')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+                <td>${result['data'][i]['lastName']}, ${result['data'][i]['firstName']}</td>
+                <td>${result['data'][i]['depName']}</td>
+                <td>${result['data'][i]['jobTitle']}</td>
+                <td>${result['data'][i]['locName']}</td>
+                <td>${result['data'][i]['email']}</td>
+            </tr>
+            `
+        }
+        //renders above information to the DOM
+        $('#emp_list').html(employeeList);
+    }
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `employee List Error: ${xhr.status} : ${xhr.statusText}.`
+            console.log(errorMessage);
+            }
+    })
+}
+
+//Generates drop down selection list when user add or edits and employee.
+const depDropDownAJAX = (depID) => {
+   
+    $.ajax({
+        url: "./php/dropdownList.php",
+        type: 'POST',
+        dataType: 'json',
+        // data: {
+        //     stfID : stfID
+        // },
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+
+            // Ternary sets selected option per staff member based on their department and jobtitle
+            let dropdownDepartments;
+            dropdownDepartments += `<option value="" class="dropdown-list-item">Select Department</option>`
+            for(i=0; i < result['departments'].length; i++) {
+                //If depID matches then dropdown Menu will default to that option in the list
+                result['departments'][i]['depID'] == depID ?
+                dropdownDepartments += `<option selected="selected" value="${result['departments'][i]['depID']}" class="dropdown_list_departments" required>${result['departments'][i]['department']}</option>`:
+                dropdownDepartments += `<option value="${result['departments'][i]['depID']}" name="${result['departments'][i]['depID']}" class="dropdown_list_departments" required>${result['departments'][i]['department']}</option>`
+            }
+
+            let dropdownName;
+            dropdownName += `<option value="dropdown_start" class="dropdown-list-item">Select Employee</option>`
+            for(i=0; i < result['personnel'].length; i++) {
+                dropdownName += `<option value="${result['personnel'][i]['id']}" class="dropdown-list-item">${[result['personnel'][i]['lastName'],result['personnel'][i]['firstName']]}</option>`
+            }
+            
+            
+            $('#ddm_name_filter').html(dropdownName);
+
+
+            $('.ddmdepartment').html(dropdownDepartments)
+            $('.ddmTitle').html(dropdownDepartments)
+
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `deleteEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. `
+            console.log(errorMessage);
+            }
+    })
+}
+
+//Generates drop down selection list when user add or edits and employee.
+const locDropDownAJAX = () => {
+   
+    $.ajax({
+        url: "./php/dropdownList.php",
+        type: 'POST',
+        dataType: 'json',
+        // data: {
+        //     stfID : stfID
+        // },
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+
+            // Ternary sets selected option per staff member based on their department and jobtitle
+            let dropdownLocations;
+            dropdownLocations += `<option value="" class="dropdown-list-item">Select Location</option>`
+
+            for(i=0; i < result['locations'].length; i++) {
+                dropdownLocations += `<option value="${result['locations'][i]['locID']}" name="${result['locations'][i]['locID']}" class="dropdown_list_locations" required>${result['locations'][i]['location']}</option>`
+            }
+
+            $('.ddmTitle').html(dropdownLocations)
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `locDropDownAJAX Error: ${xhr.status} : ${xhr.statusText}. `
+            console.log(errorMessage);
+            }
+    })
+}
+
+
+//pulls data to pre-populate the edit employee function
+const employeeRetrieve = (stfID) => {
+    //resets User Message
+    editEmployee()
+$.ajax({
+    url: "./php/employeeRetrieve.php",
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        'id' : stfID
+    },
+        
+    success: function(result) {
+        console.log(result);   //Bug Testing
+
+        $('#editModalBody').html(`
+        <div class="form-group">
+              <label>Staff Number</label>
+              <input type="text" class="form-control" name="staffID" value="${result[0]['stfID']}" readonly>
+            </div>
+            <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" name="firstName" placeholder="${result[0]['firstName']}" value="${result[0]['firstName']}" required>
+          </div>
+          <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" class="form-control" name="lastName" placeholder="${result[0]['lastName']}" value="${result[0]['lastName']}" required>
+            </div>
+            <div class="form-group">
+              <label>Department</label>
+              <select id="update_department" class="form-control ddmdepartment" name="depID"> </select>
+            </div>
+            <div class="form-group">
+              <label>Job Title</label>
+              <input type="text" class="form-control" name="jobTitle" placeholder="${result[0]['jobTitle']}" value="${result[0]['jobTitle']}" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email" placeholder="${result[0]['email']}" value="${result[0]['email']}" required>
+            </div>
+    `)
+    //populates the department list to prevent user free typing.
+    let depID = result[0]['depID']
+    depDropDownAJAX(depID)
+    
+    },
+    
+    error: function(xhr, status, error){
+        var errorMessage = `employeeRetrieve Error: ${xhr.status} : ${xhr.statusText}. `
+        console.log(errorMessage);
+        }
+})
+}
+
+//Deletes Employees from the list
+const deleteEmployeeAJAX = (stfID) => {
+   
+    $.ajax({
+        url: "./php/deleteEmployee.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            stfID : stfID
+        },
+            
+        success: function(result) {
+            //console.log(result);   //Bug Testing
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `deleteEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. `
+            console.log(errorMessage);
+            }
+    })
+}
+
+//Listens ADD form submission
+$(function () {
+
+    $('#addForm').on('submit', function (e) {
+
+      e.preventDefault();
+      console.log($('#addForm').serializeArray())
+      console.log($('#addForm').serialize())
+      $.ajax({
+        url: "./php/addEmployee.php",
+        type: 'POST',
+        dataType: 'json',
+        data: $('#addForm').serialize(),
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+
+            result['message'] == 'duplication' ? $('#add_message').html('This is a duplication. No user can share the same email address')
+                                               : $('#add_message').html('User has been added to database.')
+                                            
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `addEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. `
+            console.log(errorMessage);
+            }
+    })
+
+    })
+})
+
+//Listens for EDIT form submission
+$(function () {
+
+    $('#editForm').on('submit', function (e) {
+
+      e.preventDefault();
+    //   console.log($('#editForm').serializeArray())
+    //   console.log($('#editForm').serialize())
+      $.ajax({
+        url: "./php/updateEmp.php",
+        type: 'POST',
+        dataType: 'json',
+        data: $('#editForm').serialize(),
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+            $('#edit_message').html('')
+            result['message'] == 'duplication' ? $('#edit_message').html('No changes detected. Please amend resubmit.') 
+                                            : $('#edit_message').html('User has been successfully updated.') 
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `UpdateEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. `
+            console.log(errorMessage);
+            }
+    })
+
+    })
+})
+
+
+
+
+/* OLD */
 
 //Creates Drop Down Menu For Employee Selection.....Sorted By Lastname.
 const employeeDropdownMenu = () => {
@@ -69,7 +347,7 @@ const jobDepDropdownMenu = (depID, jobTitle) => {
                 dropdownRegions += `<option value="${result['locations'][i]['locID']}" class="dropdown_list_Location">${result['locations'][i]['location']}</option>`
             }
             $('.dropdown_menu_region').html(dropdownRegions);
-
+console.log(dropdownDepartments)
         },
         
         error: function(xhr, status, error){
@@ -242,58 +520,58 @@ const singleEmployeeRetrieval = (id, call) => {
 }
 
 //Add employee to DB. For success and failur the user will recieve relevant messages to guide them.
-const addEmployeeAJAX = (formdata) => {
+// const addEmployeeAJAX = (formdata) => {
     
-    $.ajax({
-        url: "./php/addEmployee.php",
-        type: 'POST',
-        dataType: 'json',
-        data: formdata,
+//     $.ajax({
+//         url: "./php/addEmployee.php",
+//         type: 'POST',
+//         dataType: 'json',
+//         data: formdata,
             
-        success: function(result) {
-            //console.log(result);   //Bug Testing
+//         success: function(result) {
+//             //console.log(result);   //Bug Testing
 
-            if(result['success']){
-                //return success message to user, message removed from dom after 2 secs, form reset
-                $('#add_emp_status_message').html('').fadeIn(0)
+//             if(result['success']){
+//                 //return success message to user, message removed from dom after 2 secs, form reset
+//                 $('#add_emp_status_message').html('').fadeIn(0)
 
-                $('#add_emp_status_message').html(`
-                <h4 class="success_message">Employee Has Successfully Added</h4>  
-                `).delay(2000)
-                .fadeOut(800);
+//                 $('#add_emp_status_message').html(`
+//                 <h4 class="success_message">Employee Has Successfully Added</h4>  
+//                 `).delay(2000)
+//                 .fadeOut(800);
 
-                $('#add_employee').replaceWith(`
-                <button id="add_employee" type="submit" value="submit" onclick="addEmp()">Submit</Button>`)
-                $('#add_table :input').val('');
+//                 $('#add_employee').replaceWith(`
+//                 <button id="add_employee" type="submit" value="submit" onclick="addEmp()">Submit</Button>`)
+//                 $('#add_table :input').val('');
 
-            } else if(result['errors'] == 'duplication') {
-                //if duplicate entry found on DB user is asked to re-confirm prior to submission
-                $('#add_emp_status_message').html('').fadeIn(0)
-                $('#add_emp_status_message').append(`
-                <h4 >This appears to be a duplicate entry, press submit again to confirm ok.</h4> <h4>Or <a onClick="addFormReset()">Click Here</a> to reset form.</h4>  
-                `)
-                $('#add_employee').replaceWith(`
-                <button id="add_employee" type="submit" value="submitFinal" onclick="addEmp()">Reconfirm</Button>`)
-            }
+//             } else if(result['errors'] == 'duplication') {
+//                 //if duplicate entry found on DB user is asked to re-confirm prior to submission
+//                 $('#add_emp_status_message').html('').fadeIn(0)
+//                 $('#add_emp_status_message').append(`
+//                 <h4 >This appears to be a duplicate entry, press submit again to confirm ok.</h4> <h4>Or <a onClick="addFormReset()">Click Here</a> to reset form.</h4>  
+//                 `)
+//                 $('#add_employee').replaceWith(`
+//                 <button id="add_employee" type="submit" value="submitFinal" onclick="addEmp()">Reconfirm</Button>`)
+//             }
             
-            else {
-                //clears any priro messages
-                $('#add_emp_status_message').html('').fadeIn(0)
-                //returns message to user if any of the form contents is missing.
-                for (message in result['errors']){
-                    $('#add_emp_status_message').append(`
-                    <h4> ${result['errors'][message]}</h4>  
-                    `)
-                }
-            }
-        },
+//             else {
+//                 //clears any priro messages
+//                 $('#add_emp_status_message').html('').fadeIn(0)
+//                 //returns message to user if any of the form contents is missing.
+//                 for (message in result['errors']){
+//                     $('#add_emp_status_message').append(`
+//                     <h4> ${result['errors'][message]}</h4>  
+//                     `)
+//                 }
+//             }
+//         },
         
-        error: function(xhr, status, error){
-            var errorMessage = `addEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. Error was generated with alpha2code:`
-            console.log(errorMessage);
-            }
-    })
-}
+//         error: function(xhr, status, error){
+//             var errorMessage = `addEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. Error was generated with alpha2code:`
+//             console.log(errorMessage);
+//             }
+//     })
+// }
 
 //Add employee to DB. For success and failur the user will recieve relevant messages to guide them.
 const updateEmployeeAJAX = (formdata) => {
@@ -330,51 +608,6 @@ const updateEmployeeAJAX = (formdata) => {
 }
 
 
-const deleteEmployeeAJAX = (formdata) => {
-    
-    $.ajax({
-        url: "./php/deleteEmployee.php",
-        type: 'POST',
-        dataType: 'json',
-        data: formdata,
-            
-        success: function(result) {
-            //console.log(result);   //Bug Testing
-
-            $('#delete_emp_status_message').html('').fadeIn(0)
-
-            if(result['success'] == true){
-                //return success message to user, message removed from dom after 2 secs
-                $('#delete_emp_status_message').html(`
-                <h4 class="success_message">Employee Has Successfully Deleted</h4>  
-                `).delay(2000)
-                .fadeOut(800)
-                     $('#delete_employee').remove();
-                 
-                //reloads the submit button incase user has followed the 'else if' path below
-                $('#delete_employee').replaceWith(`
-                <button id="delete_employee" type="submit" value="submit" onclick="deleteEmp()">Delete</Button>`)
-                employeeDropdownMenu()
-               
-
-            } else if(result['value'] == 'reconfirm') {
-                // user asked to reconfirm prior to deletion
-                $('#delete_emp_status_message').append(`
-                <h4>Are you sure you wish to delete this employee?</h4>  
-                <h4>Once deleted this employee record cannot be restored</h4>  
-                `)
-                $('#delete_employee').replaceWith(`
-                <button id="delete_employee" type="submit" value="submitFinal" onclick="deleteEmp()">Reconfirm</Button>`)
-            }
-
-        },
-        
-        error: function(xhr, status, error){
-            var errorMessage = `deleteEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. `
-            console.log(errorMessage);
-            }
-    })
-}
 
 const employeeTeamMembersAJAX = (ref, searchCall) => {
     

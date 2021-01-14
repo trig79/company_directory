@@ -6,12 +6,11 @@ error_reporting(E_ALL);
 
 //values passed from ajax
 $id             = $_POST['staffID'];
-$forenames      = $_POST['forenames'];
-$lastname       = $_POST['surname'];
+$firstName      = $_POST['firstName'];
+$lastname       = $_POST['lastName'];
 $jobTitle       = $_POST['jobTitle'];
 $email          = $_POST['email'];
-$department     = $_POST['depId'];
-$submitValue    = $_POST['submitValue'];
+$depID          = $_POST['depID'];
 
 //$errors         = array();      // array to hold validation errors
 $data           = array();      // array to pass back data
@@ -26,11 +25,11 @@ $data['data'] = $result->fetch_all(MYSQLI_ASSOC);
 
 //Checks if data is unchanged, if true error sent back to user otherwise table updated
 if (
-  $data['data'][0]['firstName'] == $forenames &&
+  $data['data'][0]['firstName'] == $firstName &&
   $data['data'][0]['lastName'] == $lastname &&
   $data['data'][0]['jobTitle'] == $jobTitle &&
   $data['data'][0]['email'] == $email &&
-  $data['data'][0]['departmentID'] == $department
+  $data['data'][0]['departmentID'] == $depID
 ) {
   $data['success'] = false;
   $data['message'] = 'duplication';
@@ -41,7 +40,7 @@ if (
   $stmt = $conn->prepare("UPDATE  personnel 
   SET  firstName = ?, lastName = ?, jobTitle = ?, email = ?, departmentID = ?
   WHERE id = $id");
-  $stmt->bind_param("sssss", $forenames, $lastname, $jobTitle, $email, $department);
+  $stmt->bind_param("sssss", $firstName, $lastname, $jobTitle, $email, $depID);
   $stmt->execute();
 
   $data['success'] = true;

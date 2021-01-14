@@ -1,429 +1,228 @@
-/* :root {
-} */
-
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-  height: 100%;
-}
-
 body {
-  font-family: "Roboto", sans-serif;
+  color: #566787;
+  background: #f5f5f5;
+  font-family: "Varela Round", sans-serif;
+  font-size: 13px;
 }
-
-h4 {
-  margin-bottom: unset;
+.table-responsive {
+  margin: 30px 0;
 }
-
-@media screen and (orientation: portrait) {
-  .card-header {
-    background-color: slategray;
-  }
-  .card-header button {
-    width: 100%;
-    height: 100%;
-    font-size: 1.5rem;
-    color: gold;
-  }
-
-  .dropdown_style {
-    width: 60%;
-    font-size: 1.6rem;
-    margin: 0% 20%;
-  }
-
-  .Employee_Retrieve img {
-    width: 30%;
-    height: auto;
-    /* center image */
-    display: block;
-    margin: 2% auto;
-  }
-  .Employee_Retrieve table {
-    width: 100%;
-    border: none;
-  }
-  #employee_table_search tr {
-    width: 100%;
-    display: table;
-  }
-  .Employee_Retrieve table th {
-    padding: 0.5% 2%;
-    width: 30%;
-    text-align: right;
-    color: darkslategrey;
-  }
-
-  #add_table,
-  #update_table,
-  #delete_table,
-  #vacation_table {
-    width: 100%;
-    font-size: 1.6rem;
-    margin-top: 2%;
-  }
-  /* #add_table tr {
-        width: 100%;
-        display: table;
-    } */
-  #add_table th,
-  #update_table th,
-  #delete_table th,
-  #vacation_table th {
-    padding: 0.5% 2%;
-    width: 30%;
-    text-align: right;
-    color: darkslategrey;
-  }
-  .Employee_Retrieve table td,
-  #add_table td,
-  #update_table td,
-  #delete_table td,
-  #vacation_table td {
-    padding: 0.5% 1%;
-    width: 70%;
-  }
-  #add_table input,
-  #add_table select,
-  #update_table input,
-  #update_table select {
-    width: 100%;
-  }
-  #add_emp_table_div button,
-  #update_emp_table_div button,
-  #delete_emp_table_div button,
-  #vacation_emp_table_div button {
-    width: 40%;
-    margin: 2% 30% 2% 30%;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: slategray;
-    border: 1px solid slategray;
-    background-color: gold;
-    padding: 3%;
-    border-radius: 10px;
-  }
-  #add_emp_status_message,
-  #delete_emp_status_message,
-  #vacation_emp_status_message {
-    color: red;
-  }
-  #add_emp_status_message a {
-    color: slategray;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
-  .employee_search_team_members_tables {
-    margin-top: 2%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-  .employee_search_team_members_tables table {
-    table-layout: fixed;
-    width: 250px;
-    margin: 1% 1%;
-  }
-  .employee_search_team_members_tables td {
-    overflow: hidden;
-  }
-  .employee_search_team_members_tables img {
-    width: 50px;
-  }
-  #table_img {
-    width: 55px;
-    padding-right: 10%;
-  }
-  #add_emp_table_div button,
-  #update_emp_table_div button,
-  #delete_emp_table_div button,
-  #vacation_emp_table_div button {
-    width: 30%;
-    margin: 1% 35% 1% 35%;
-    padding: 1%;
-  }
-
-  #vacation_planned_table {
-    text-align: center;
-  }
-
-  #vacation_planned_table h3 {
-    color: slategray;
-  }
-  #vac_table {
-    width: 90%;
-    margin-left: 5%;
-    font-size: 1.2rem;
-  }
-
-  #vac_table td h4 {
-    font-size: 1.2rem;
-  }
-
-  #vac_table th h4 {
-    font-weight: 400;
-  }
-
-  #vac_table td {
-    padding: 0.5% 1%;
-  }
-  #vac_table th {
-    background-color: slategray;
-    color: gold;
-    padding: 1%;
-    border: none;
-  }
-
-  #vac_table button {
-    color: slategray;
-    border: 1px solid slategray;
-    background-color: gold;
-    padding: 10%;
-    border-radius: 10%;
-    cursor: pointer;
-  }
-  .vac_col2,
-  .vac_col3 {
-    width: 30%;
-  }
-  #vacation_planned_table p {
-    text-align: left;
-  }
-  #table_blank {
-    background-color: white !important;
-  }
+.table-wrapper {
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 3px;
+  min-width: 1000px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-
-@media screen and (min-width: 600px) and (orientation: portrait) {
-  .Employee_Retrieve img {
-    width: 20%;
-    max-width: 100px;
-    height: auto;
-    /* center image */
-    display: block;
-    margin: 2% auto;
-  }
-
-  .Employee_Retrieve table td,
-  #add_table td,
-  #update_table td,
-  #delete_table td,
-  #vacation_table td {
-    padding: 0.5% 1%;
-    width: 40%;
-  }
-  #add_table input,
-  #add_table select,
-  #update_table input,
-  #update_table select {
-    width: 60%;
-  }
+.table-title {
+  padding-bottom: 15px;
+  background: #435d7d;
+  color: #fff;
+  padding: 16px 30px;
+  min-width: 100%;
+  margin: -20px -25px 10px;
+  border-radius: 3px 3px 0 0;
 }
-
-/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-/*              LANDSCAPE                                                        */
-/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
-
-@media screen and (orientation: landscape) {
-  .card-header {
-    background-color: slategray;
-  }
-  .card-header button {
-    width: 100%;
-    height: 100%;
-    font-size: 1.5rem;
-    color: gold;
-  }
-
-  .dropdown_style {
-    width: 60%;
-    font-size: 1.6rem;
-    margin: 0% 20%;
-  }
-
-  .Employee_Retrieve img {
-    width: 30%;
-    max-width: 100px;
-    height: auto;
-    /* center image */
-    display: block;
-    margin: 2% auto;
-  }
-  .Employee_Retrieve table {
-    width: 100%;
-    border: none;
-  }
-  #employee_table_search tr {
-    width: 100%;
-    display: table;
-  }
-  .Employee_Retrieve table th {
-    padding: 0.5% 2%;
-    width: 30%;
-    text-align: right;
-    color: darkslategrey;
-  }
-
-  #add_table,
-  #update_table,
-  #delete_table,
-  #vacation_table {
-    width: 100%;
-    font-size: 1.6rem;
-    margin-top: 2%;
-  }
-  /* #add_table tr {
-        width: 100%;
-        display: table;
-    } */
-  #add_table th,
-  #update_table th,
-  #delete_table th,
-  #vacation_table th {
-    padding: 0.5% 2%;
-    width: 30%;
-    text-align: right;
-    color: darkslategrey;
-  }
-  .Employee_Retrieve table td,
-  #add_table td,
-  #update_table td,
-  #delete_table td,
-  #vacation_table td {
-    padding: 0.5% 1%;
-    width: 40%;
-  }
-  #add_table input,
-  #add_table select,
-  #update_table input,
-  #update_table select {
-    width: 60%;
-  }
-  #add_emp_table_div button,
-  #update_emp_table_div button,
-  #delete_emp_table_div button,
-  #vacation_emp_table_div button {
-    width: 40%;
-    margin: 2% 30% 2% 30%;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: slategray;
-    border: 1px solid slategray;
-    background-color: gold;
-    padding: 1%;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  #add_emp_status_message,
-  #delete_emp_status_message,
-  #vacation_emp_status_message {
-    color: red;
-  }
-  #add_emp_status_message a {
-    color: slategray;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
-  .employee_search_team_members_tables {
-    margin-top: 2%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-  .employee_search_team_members_tables table {
-    table-layout: fixed;
-    width: 250px;
-    margin: 1% 1%;
-  }
-  .employee_search_team_members_tables td {
-    overflow: hidden;
-  }
-  .employee_search_team_members_tables img {
-    width: 50px;
-  }
-  #table_img {
-    width: 55px;
-    padding-right: 10%;
-  }
-  #vac_table {
-    width: 90%;
-    margin-left: 5%;
-    font-size: 1.2rem;
-  }
-
-  #vac_table td h4 {
-    font-size: 1.2rem;
-  }
-
-  #vac_table th h4 {
-    font-weight: 400;
-  }
-
-  #vac_table td {
-    padding: 0.5% 1%;
-  }
-  #vac_table th {
-    background-color: slategray;
-    color: gold;
-    padding: 1%;
-    border: none;
-  }
-
-  #vac_table button {
-    color: slategray;
-    border: 1px solid slategray;
-    background-color: gold;
-    padding: 10%;
-    border-radius: 10%;
-    cursor: pointer;
-  }
-  .vac_col2,
-  .vac_col3 {
-    width: 30%;
-  }
-  #vacation_planned_table p {
-    text-align: left;
-  }
-  #table_blank {
-    background-color: white !important;
-  }
+.table-title h2 {
+  margin: 5px 0 0;
+  font-size: 24px;
 }
-
-@media screen and (min-width: 1200px) and (orientation: landscape) {
-  /* body {
-        display: flex;
-        flex-wrap: wrap;
-        height: 100%;
-    } */
-  .card-body {
-    width: 60%;
-    margin-left: 20%;
-  }
-  #accordion {
-    width: 100%;
-  }
-
-  #vac_table {
-    width: 50%;
-    margin-left: 25%;
-    font-size: 2rem;
-  }
-  #vac_table td h4 {
-    font-size: 1.5rem;
-  }
-  #vacation_planned_table h3 {
-    text-align: center;
-  }
-  /* #tree_div {
-        width: 50%;
-        background-color: aqua;
-        
-    } */
+.table-title .btn-group {
+  float: right;
+}
+.table-title .btn {
+  color: #fff;
+  float: right;
+  font-size: 13px;
+  border: none;
+  min-width: 50px;
+  border-radius: 2px;
+  border: none;
+  outline: none !important;
+  margin-left: 10px;
+}
+.table-title .btn i {
+  float: left;
+  font-size: 21px;
+  margin-right: 5px;
+}
+.table-title .btn span {
+  float: left;
+  margin-top: 2px;
+}
+table.table tr th,
+table.table tr td {
+  border-color: #e9e9e9;
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+table.table tr th:first-child {
+  width: 60px;
+}
+table.table tr th:last-child {
+  width: 100px;
+}
+table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fcfcfc;
+}
+table.table-striped.table-hover tbody tr:hover {
+  background: #f5f5f5;
+}
+table.table th i {
+  font-size: 13px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+table.table td:last-child i {
+  opacity: 0.9;
+  font-size: 22px;
+  margin: 0 5px;
+}
+table.table td a {
+  font-weight: bold;
+  color: #566787;
+  display: inline-block;
+  text-decoration: none;
+  outline: none !important;
+}
+table.table td a:hover {
+  color: #2196f3;
+}
+table.table td a.edit {
+  color: #ffc107;
+}
+table.table td a.delete {
+  color: #f44336;
+}
+table.table td i {
+  font-size: 19px;
+}
+table.table .avatar {
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.pagination {
+  float: right;
+  margin: 0 0 5px;
+}
+.pagination li a {
+  border: none;
+  font-size: 13px;
+  min-width: 30px;
+  min-height: 30px;
+  color: #999;
+  margin: 0 2px;
+  line-height: 30px;
+  border-radius: 2px !important;
+  text-align: center;
+  padding: 0 6px;
+}
+.pagination li a:hover {
+  color: #666;
+}
+.pagination li.active a,
+.pagination li.active a.page-link {
+  background: #03a9f4;
+}
+.pagination li.active a:hover {
+  background: #0397d6;
+}
+.pagination li.disabled i {
+  color: #ccc;
+}
+.pagination li i {
+  font-size: 16px;
+  padding-top: 6px;
+}
+.hint-text {
+  float: left;
+  margin-top: 10px;
+  font-size: 13px;
+}
+/* Custom checkbox */
+.custom-checkbox {
+  position: relative;
+}
+.custom-checkbox input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  margin: 5px 0 0 3px;
+  z-index: 9;
+}
+.custom-checkbox label:before {
+  width: 18px;
+  height: 18px;
+}
+.custom-checkbox label:before {
+  content: "";
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: text-top;
+  background: white;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+.custom-checkbox input[type="checkbox"]:checked + label:after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  width: 6px;
+  height: 11px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  transform: inherit;
+  z-index: 3;
+  transform: rotateZ(45deg);
+}
+.custom-checkbox input[type="checkbox"]:checked + label:before {
+  border-color: #03a9f4;
+  background: #03a9f4;
+}
+.custom-checkbox input[type="checkbox"]:checked + label:after {
+  border-color: #fff;
+}
+.custom-checkbox input[type="checkbox"]:disabled + label:before {
+  color: #b8b8b8;
+  cursor: auto;
+  box-shadow: none;
+  background: #ddd;
+}
+/* Modal styles */
+.modal .modal-dialog {
+  max-width: 400px;
+}
+.modal .modal-header,
+.modal .modal-body,
+.modal .modal-footer {
+  padding: 20px 30px;
+}
+.modal .modal-content {
+  border-radius: 3px;
+  font-size: 14px;
+}
+.modal .modal-footer {
+  background: #ecf0f1;
+  border-radius: 0 0 3px 3px;
+}
+.modal .modal-title {
+  display: inline-block;
+}
+.modal .form-control {
+  border-radius: 2px;
+  box-shadow: none;
+  border-color: #dddddd;
+}
+.modal textarea.form-control {
+  resize: vertical;
+}
+.modal .btn {
+  border-radius: 2px;
+  min-width: 100px;
+}
+.modal form label {
+  font-weight: normal;
 }
