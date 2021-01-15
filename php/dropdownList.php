@@ -64,6 +64,29 @@ if (mysqli_num_rows($result) > 0) {
 	$data['personnel']['message'] = 'Nothing Retrieved from DB';
 }
 
+//DB Fetch Departments and Location
+$sql = "SELECT  d.id AS depID, d.name AS depName, d.locationID,
+		l.id AS locID, l.name AS locName
+		FROM department d
+		INNER JOIN location l ON l.id = d.locationID 
+		ORDER BY depName";
+$result = mysqli_query($conn, $sql);
+
+$data['depAndLocation']    = [];      // array to pass back data
+if (mysqli_num_rows($result) > 0) {
+
+	while ($row = mysqli_fetch_assoc($result)) {
+		// $temp = [];
+		// $temp['department'] = $row['name'];
+		// $temp['locID'] = $row['locationID'];
+		// $temp['depID'] = $row['id'];
+		array_push($data['depAndLocation'], $row);
+	};
+} else {
+	$data['departments']['success'] = false;
+	$data['departments']['message'] = 'Nothing Retrieved from DB';
+}
+
 $encode = json_encode($data, JSON_UNESCAPED_UNICODE);
 echo $encode;
 

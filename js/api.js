@@ -80,7 +80,7 @@ const empDataTable = (formData) => {
             }
     })
 }
-
+let dropdownLocations; // stored in global as data required in multiple places, probably best to create new AJAX for edit DB lists.
 //Generates drop down selection list when user add or edits and employee.
 const depDropDownAJAX = (depID) => {
    
@@ -117,8 +117,59 @@ const depDropDownAJAX = (depID) => {
             $('.ddmTitle').html(dropdownDepartments)
 
             $('#edit_DB_button').html(`
-            <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="#"><i class="material-icons" >create</i> <span>Edit Dep DB</span></a>
+            <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="editDepDbAJAX()"><i class="material-icons" >create</i> <span>Edit Dep DB</span></a>
           `)
+
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `deleteEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. `
+            console.log(errorMessage);
+            }
+    })
+}
+const editDepDbAJAX = (depID) => {
+   
+    $.ajax({
+        url: "./php/dropdownList.php",
+        type: 'POST',
+        dataType: 'json',
+        // data: {
+        //     stfID : stfID
+        // },
+            
+        success: function(result) {
+            //console.log(result);   //Bug Testing
+
+            // Ternary sets selected option per staff member based on their department and jobtitle
+
+          let editDepDbList;
+          //if(depID == 'editDB') {
+              for(i=0; i < result['depAndLocation'].length; i++) {
+ 
+                  editDepDbList += `
+                  <tr>
+                      <td> 
+                          <a href="#" class="delete" data-toggle="modal" onclick="deleteDepartmentAjax('${result['depAndLocation'][i]['depID']}')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                      </td>
+                      <td>${result['depAndLocation'][i]['depName']}</td>
+                      <td>${result['depAndLocation'][i]['locName']}</td>
+                  </tr>
+                  `
+               }
+               $('#edit_dep_DB_table').html(editDepDbList)
+               //console.log(editDepDbList)
+               //$('#ddm_edit_dep_DB').html(dropdownLocations)
+              //}
+
+              let dropdownLocations;
+              dropdownLocations += `<option value="" class="dropdown-list-item">Select Location</option>`
+  
+              for(i=0; i < result['locations'].length; i++) {
+                  dropdownLocations += `<option value="${result['locations'][i]['locID']}" name="${result['locations'][i]['locID']}" class="dropdown_list_locations" required>${result['locations'][i]['location']}</option>`
+              }
+              $('#ddm_edit_dep_DB').html(dropdownLocations)
 
         },
         
@@ -130,6 +181,9 @@ const depDropDownAJAX = (depID) => {
 }
 
 //Generates drop down selection list when user add or edits and employee.
+
+
+
 const locDropDownAJAX = (call) => {
    
     $.ajax({
@@ -152,17 +206,18 @@ const locDropDownAJAX = (call) => {
             }
 
             $('.ddmTitle').html(dropdownLocations)
+            $('#ddm_edit_dep_DB').html(dropdownLocations)
             $('#edit_DB_button').html(`
               <a href="#edit_loc_DB_modal" id="#"class="btn btn-success" data-toggle="modal" onClick="locDropDownAJAX('editDB')"><i class="material-icons" >create</i> <span>Edit Loc DB</span></a>
             `)
 
-            let editDbList;
+            let editLocDbList;
             if(call == 'editDB') {
                 for(i=0; i < result['locations'].length; i++) {
                     //removed from below
                     // deleteDBModal
     
-                    editDbList += `
+                    editLocDbList += `
                     <tr>
                         <td> 
                             <a href="#" class="delete" data-toggle="modal" onclick="deleteLocationAjax('${result['locations'][i]['locID']}')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -172,7 +227,7 @@ const locDropDownAJAX = (call) => {
                     `
                  }
 
-                 $('#edit_Loc_DB_table').html(editDbList)
+                 $('#edit_Loc_DB_table').html(editLocDbList)
 
                 }
                 
@@ -333,7 +388,7 @@ $(function () {
        console.log(e['target'][0]['value'])
        //console.log($('#editLocDBForm').serialize())
       $.ajax({
-        url: "./php/locationEdit.php",
+        url: "./php/locationInsert.php",
         type: 'POST',
         dataType: 'json',
         data: {
@@ -389,3 +444,40 @@ const deleteLocationAjax =(locID) => {
     })
 
 }
+
+//Listens for Location DB EDIT form submission
+$(function () {
+
+    $('#editDepDBForm').on('submit', function (e) {
+
+      e.preventDefault();
+      console.log(e['target'][0]['value'])
+      console.log(e['target'][1]['value'])
+      //console.log($('#editDepDBForm').serialize())
+      $.ajax({
+        url: "./php/departmentInsert.php",
+        type: 'POST',
+        dataType: 'json',
+        data:  {
+             'addDepartment' : e['target'][0]['value'],
+             'depID'         : e['target'][1]['value'],
+        },
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+              $('#edit_dep_DB_message').html('')
+              result['message'] == 'duplication' ? $('#edit_dep_DB_message').html('This Dep & Location Already Exists.') :
+              result['message'] == 'EmptyString' ? $('#edit_dep_DB_message').html('Error Empty Input Received.')
+                                                 : $('#edit_dep_DB_message').html('Department Added, Please Refresh The Page.') 
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `editLocDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
+            console.log(errorMessage);
+            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            }
+    })
+
+    })
+})
