@@ -5,8 +5,7 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
 //values passed from ajax
-$newLoc      = ucwords($_POST['addLocation']);
-//$newLoc      = 'Northwich';
+$newLoc         = ucwords($_POST['addLocation']);
 
 $data           = array();      // array to pass back data
 

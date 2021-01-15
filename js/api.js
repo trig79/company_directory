@@ -159,11 +159,13 @@ const locDropDownAJAX = (call) => {
             let editDbList;
             if(call == 'editDB') {
                 for(i=0; i < result['locations'].length; i++) {
-    //onclick="deleteLocationAjax('${result['locations'][i]['locID']}')"
+                    //removed from below
+                    // deleteDBModal
+    
                     editDbList += `
                     <tr>
                         <td> 
-                            <a href="#deleteDBModal" class="delete" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#" class="delete" data-toggle="modal" onclick="deleteLocationAjax('${result['locations'][i]['locID']}')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                         <td>${result['locations'][i]['location']}</td>
                     </tr>
@@ -322,7 +324,7 @@ $(function () {
     })
 })
 
-//Listens for EDIT form submission
+//Listens for Location DB EDIT form submission
 $(function () {
 
     $('#editLocDBForm').on('submit', function (e) {
@@ -336,7 +338,6 @@ $(function () {
         dataType: 'json',
         data: {
             'addLocation' : e['target'][0]['value'],
-            'functionCall' : e['target'][0]['name']
         },
             
         success: function(result) {
@@ -359,3 +360,32 @@ $(function () {
 })
 
 
+const deleteLocationAjax =(locID) => {
+    console.log(locID)
+    $.ajax({
+        url: "./php/locationDelete.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'deleteLocID' : locID,
+        },
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+            let count = result['personnelAssigned']
+            $('#edit_loc_DB_message').html('')
+              result['message'] == 'PlaceInUse'      ? $('#edit_loc_DB_message').html('Can Not Delete. ' + count + ' staff are assigned this location') :
+              result['message'] == 'EmptyString'     ? $('#edit_loc_DB_message').html('Error Empty Input Received.') :
+              result['message'] == 'LocationNoExist' ? $('#edit_loc_DB_message').html('Location not found on Database.')
+                                                     : $('#edit_loc_DB_message').html('Location been Deleted, Please Refresh The Page.') 
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `editLocDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
+            console.log(errorMessage);
+            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            }
+    })
+
+}
