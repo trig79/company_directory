@@ -34,7 +34,7 @@ const empDataTable = (formData) => {
                 <tr>
                     <td> 
                         <a href="#edit_employee_modal" class="edit testing" data-toggle="modal" onclick="employeeRetrieve('${result['data'][i]['stfID']}')"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" onclick="deleteModal('${result['data'][i]['stfID']}')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="#deleteEmployeeModal" id="#delete_button" class="delete" data-toggle="modal" onclick="deleteModal('${result['data'][i]['stfID']}')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                     <td>${result['data'][i]['lastName']}, ${result['data'][i]['firstName']}</td>
                     <td>${result['data'][i]['depName']}</td>
@@ -97,7 +97,7 @@ const depDropDownAJAX = (depID) => {
 
             // Ternary sets selected option per staff member based on their department and jobtitle
             let dropdownDepartments;
-            dropdownDepartments += `<option value="" class="dropdown-list-item">Select Department</option>`
+            dropdownDepartments += `<option value="" class="dropdown-list-item">Department</option>`
             for(i=0; i < result['departments'].length; i++) {
                 //If depID matches then dropdown Menu will default to that option in the list
                 result['departments'][i]['depID'] == depID ?
@@ -106,7 +106,7 @@ const depDropDownAJAX = (depID) => {
             }
 
             let dropdownName;
-            dropdownName += `<option value="dropdown_start" class="dropdown-list-item">Select Employee</option>`
+            dropdownName += `<option value="dropdown_start" class="dropdown-list-item">Employee</option>`
             for(i=0; i < result['personnel'].length; i++) {
                 dropdownName += `<option value="${result['personnel'][i]['id']}" class="dropdown-list-item">${[result['personnel'][i]['lastName'],result['personnel'][i]['firstName']]}</option>`
             }
@@ -116,6 +116,9 @@ const depDropDownAJAX = (depID) => {
             $('.ddmdepartment').html(dropdownDepartments)
             $('.ddmTitle').html(dropdownDepartments)
 
+            $('#edit_DB_button').html(`
+            <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="#"><i class="material-icons" >create</i> <span>Edit Dep DB</span></a>
+          `)
 
         },
         
@@ -127,7 +130,7 @@ const depDropDownAJAX = (depID) => {
 }
 
 //Generates drop down selection list when user add or edits and employee.
-const locDropDownAJAX = () => {
+const locDropDownAJAX = (call) => {
    
     $.ajax({
         url: "./php/dropdownList.php",
@@ -149,7 +152,28 @@ const locDropDownAJAX = () => {
             }
 
             $('.ddmTitle').html(dropdownLocations)
+            $('#edit_DB_button').html(`
+              <a href="#edit_loc_DB_modal" id="#"class="btn btn-success" data-toggle="modal" onClick="locDropDownAJAX('editDB')"><i class="material-icons" >create</i> <span>Edit Loc DB</span></a>
+            `)
 
+            let editDbList;
+            if(call == 'editDB') {
+                for(i=0; i < result['locations'].length; i++) {
+    //onclick="deleteLocationAjax('${result['locations'][i]['locID']}')"
+                    editDbList += `
+                    <tr>
+                        <td> 
+                            <a href="#deleteDBModal" class="delete" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                        <td>${result['locations'][i]['location']}</td>
+                    </tr>
+                    `
+                 }
+
+                 $('#edit_Loc_DB_table').html(editDbList)
+
+                }
+                
         },
         
         error: function(xhr, status, error){
@@ -292,6 +316,42 @@ $(function () {
         error: function(xhr, status, error){
             var errorMessage = `UpdateEmployeeAJAX Error: ${xhr.status} : ${xhr.statusText}. `
             console.log(errorMessage);
+            }
+    })
+
+    })
+})
+
+//Listens for EDIT form submission
+$(function () {
+
+    $('#editLocDBForm').on('submit', function (e) {
+
+      e.preventDefault();
+       console.log(e['target'][0]['value'])
+       //console.log($('#editLocDBForm').serialize())
+      $.ajax({
+        url: "./php/locationEdit.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'addLocation' : e['target'][0]['value'],
+            'functionCall' : e['target'][0]['name']
+        },
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+             $('#edit_loc_DB_message').html('')
+             result['message'] == 'duplication' ? $('#edit_loc_DB_message').html('This Location Already Exists.') :
+             result['message'] == 'EmptyString' ? $('#edit_loc_DB_message').html('Error Empty Input Received.')
+                                                : $('#edit_loc_DB_message').html('Location has Added, Please Refresh The Page.') 
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `editLocDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
+            console.log(errorMessage);
+            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
             }
     })
 

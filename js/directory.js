@@ -1,5 +1,3 @@
-
-
 const ddmDeptFilter = document.querySelector('#ddm_dep_filter');
 ddmDeptFilter.addEventListener('change', (event) => {  
   //console.log(event.target.value)    //bug testing
@@ -23,11 +21,11 @@ ddmEmpFilter.addEventListener('change', (event) => {
   empDataTable(formData)
 });
 
+const addModalClick = document.getElementById('#add_button')
+addModalClick.addEventListener('click', () => {
 
-
-function addEmployee(){
-  //console.log('add employee called')  //bug testing
   $('#addModalBody').html(`
+  
       <div class="form-group">
         <label>First Name</label>
         <input type="text" class="form-control" maxlength="50" name="firstName" required>
@@ -48,10 +46,10 @@ function addEmployee(){
         <label>Email</label>
         <input id="inputEmail" type="email" class="form-control" maxlength="100" name="email" required>
       </div>
-`)
-$('#add_message').html('').fadeIn(0)
-depDropDownAJAX()
-}
+  `)
+  $('#add_message').html('').fadeIn(0)
+  depDropDownAJAX()
+})
 
 
 function deleteModal(stfID){
@@ -85,3 +83,48 @@ function editEmployee() {
 
   $('#edit_message').html('').fadeIn(0)
 }
+
+// const editDBModalClick = document.getElementById('#edit_DB_button')
+// editDBModalClick.addEventListener('click', () => {
+
+function editDBModal() {
+  //console.log('add employee called')  //bug testing
+  $('#editDB_Modal_Body').html(`
+  <div class="form-check">
+  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" onclick="depDropDownAJAX('editDB')" checked>
+  <label class="form-check-label" for="gridRadios1">
+    Departments
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" onclick="locDropDownAJAX(''editDB)">
+  <label class="form-check-label" for="gridRadios2">
+    Location
+  </label>
+</div>
+
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" maxlength="50" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" maxlength="50" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label>Department</label>
+        <select id="add_department" class="form-control ddmdepartment" maxlength="50" name="depID" required> </select>
+      </div>
+      <div class="form-group">
+        <label>Job Title</label>
+        <input type="text" class="form-control" maxlength="50" name="jobTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input id="inputEmail" type="email" class="form-control" maxlength="100" name="email" required>
+      </div>
+`)
+//$('#add_message').html('').fadeIn(0)
+//depDropDownAJAX()
+}
+
