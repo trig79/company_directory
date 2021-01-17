@@ -51,6 +51,37 @@ addModalClick.addEventListener('click', () => {
   depDropDownAJAX()
 })
 
+const addModalClickMob = document.getElementById('#add_button_mobile')
+addModalClickMob.addEventListener('click', () => {
+
+  $('#addModalBody').html(`
+  
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" maxlength="50" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" maxlength="50" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label>Department</label>
+        <select id="add_department" class="form-control ddmdepartment" maxlength="50" name="depID" required> </select>
+      </div>
+      <div class="form-group">
+        <label>Job Title</label>
+        <input type="text" class="form-control" maxlength="50" name="jobTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input id="inputEmail" type="email" class="form-control" maxlength="100" name="email" required>
+      </div>
+  `)
+  $('#add_message').html('').fadeIn(0)
+  depDropDownAJAX()
+})
+
+
 
 function deleteModal(stfID){
   //console.log('delete employee called')   //bug testing

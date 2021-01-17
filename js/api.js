@@ -119,6 +119,9 @@ const depDropDownAJAX = (depID) => {
             $('#edit_DB_button').html(`
             <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="editDepDbAJAX()"><i class="material-icons" >create</i> <span>Edit Dep DB</span></a>
           `)
+          $('#edit_DB_button_mobile').html(`
+          <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="editDepDbAJAX()"><i class="material-icons" >create</i></a>
+        `)
 
 
         },
@@ -140,14 +143,12 @@ const editDepDbAJAX = (depID) => {
         // },
             
         success: function(result) {
-            //console.log(result);   //Bug Testing
+            console.log(result);   //Bug Testing
 
             // Ternary sets selected option per staff member based on their department and jobtitle
-
           let editDepDbList;
           //if(depID == 'editDB') {
               for(i=0; i < result['depAndLocation'].length; i++) {
- 
                   editDepDbList += `
                   <tr>
                       <td> 
@@ -162,7 +163,6 @@ const editDepDbAJAX = (depID) => {
                //console.log(editDepDbList)
                //$('#ddm_edit_dep_DB').html(dropdownLocations)
               //}
-
               let dropdownLocations;
               dropdownLocations += `<option value="" class="dropdown-list-item">Select Location</option>`
   
@@ -181,9 +181,6 @@ const editDepDbAJAX = (depID) => {
 }
 
 //Generates drop down selection list when user add or edits and employee.
-
-
-
 const locDropDownAJAX = (call) => {
    
     $.ajax({
@@ -209,6 +206,9 @@ const locDropDownAJAX = (call) => {
             $('#ddm_edit_dep_DB').html(dropdownLocations)
             $('#edit_DB_button').html(`
               <a href="#edit_loc_DB_modal" id="#"class="btn btn-success" data-toggle="modal" onClick="locDropDownAJAX('editDB')"><i class="material-icons" >create</i> <span>Edit Loc DB</span></a>
+            `)
+            $('#edit_DB_button_mobile').html(`
+              <a href="#edit_loc_DB_modal" id="#"class="btn btn-success" data-toggle="modal" onClick="locDropDownAJAX('editDB')"><i class="material-icons" >create</i></a>
             `)
 
             let editLocDbList;
@@ -366,7 +366,7 @@ $(function () {
             //console.log(result);   //Bug Testing
             $('#edit_message').html('')
             result['message'] == 'duplication' ? $('#edit_message').html('No changes detected. Please amend resubmit.') 
-                                            : $('#edit_message').html('User has been successfully updated.') 
+                                               : $('#edit_message').html('User has been successfully updated.') 
 
         },
         
@@ -400,7 +400,7 @@ $(function () {
              $('#edit_loc_DB_message').html('')
              result['message'] == 'duplication' ? $('#edit_loc_DB_message').html('This Location Already Exists.') :
              result['message'] == 'EmptyString' ? $('#edit_loc_DB_message').html('Error Empty Input Received.')
-                                                : $('#edit_loc_DB_message').html('Location has Added, Please Refresh The Page.') 
+                                                : $('#edit_loc_DB_message').html('Location has Added, Please <a href="#" onclick="window.location.reload()">Refresh</a> The Page.') 
 
         },
         
@@ -437,7 +437,7 @@ const deleteLocationAjax =(locID) => {
         },
         
         error: function(xhr, status, error){
-            var errorMessage = `editLocDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
+            var errorMessage = `deleteLocationAjax Error: ${xhr.status} : ${xhr.statusText}. ${status}`
             console.log(errorMessage);
             $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
             }
@@ -451,33 +451,66 @@ $(function () {
     $('#editDepDBForm').on('submit', function (e) {
 
       e.preventDefault();
-      console.log(e['target'][0]['value'])
-      console.log(e['target'][1]['value'])
-      //console.log($('#editDepDBForm').serialize())
+
+      //console.log(e['target'][0]['value'])
+      //console.log(e['target'][1]['value'])
+
       $.ajax({
         url: "./php/departmentInsert.php",
         type: 'POST',
         dataType: 'json',
-        data:  {
-             'addDepartment' : e['target'][0]['value'],
-             'depID'         : e['target'][1]['value'],
+        data: {
+            'addDepartment' : e['target'][0]['value'],
+            'locID'         : e['target'][1]['value'],
         },
             
         success: function(result) {
             console.log(result);   //Bug Testing
               $('#edit_dep_DB_message').html('')
-              result['message'] == 'duplication' ? $('#edit_dep_DB_message').html('This Dep & Location Already Exists.') :
+              result['message'] == 'duplication' ? $('#edit_dep_DB_message').html('This Department/Location Already Exists.') :
               result['message'] == 'EmptyString' ? $('#edit_dep_DB_message').html('Error Empty Input Received.')
-                                                 : $('#edit_dep_DB_message').html('Department Added, Please Refresh The Page.') 
+                                                 : $('#edit_dep_DB_message').html('Department has been Added, Please <a href="#" onclick="window.location.reload()">Refresh</a> The Page.') 
+
+        },
+        
+        error: function(xhr, status, error){
+            var errorMessage = `editDepDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
+            console.log(errorMessage);
+            $('#edit_dep_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            }
+    })
+
+    })
+})
+
+const deleteDepartmentAjax = (depID) => {      
+    console.log(depID)
+      $.ajax({
+        url: "./php/departmentDelete.php",
+        type: 'POST',
+        dataType: 'json',
+        data:  {
+            'depID' : depID
+        },
+            
+        success: function(result) {
+            console.log(result);   //Bug Testing
+            let count = result['personnelAssigned']
+
+              $('#edit_dep_DB_message').html('')
+              result['message'] == 'PlaceInUse'  ? $('#edit_dep_DB_message').html('Can not Delete, ' + count + ' Staff are assigned to this Department and Location.') :
+              result['message'] == 'EmptyString' ? $('#edit_dep_DB_message').html('Error Empty Input Received.') :
+              result['message'] == 'Error'       ? $('#edit_dep_DB_message').html('Fatal Error contact IT.')
+                                                 : $('#edit_dep_DB_message').html('Department has been deleted. Please <a href="#" onclick="window.location.reload()">Refresh</a> The Page.') 
 
         },
         
         error: function(xhr, status, error){
             var errorMessage = `editLocDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
             console.log(errorMessage);
-            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
-            }
+            $('#edit_Dep_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            },
     })
-
-    })
-})
+}
+//     })
+// })

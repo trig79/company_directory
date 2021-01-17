@@ -235,6 +235,15 @@ table.table .avatar {
 #employee_table_mobile_screen {
   display: none;
 }
+.for_mobile {
+  display: none;
+}
+#titleIcons {
+  padding-top: 5px;
+}
+#title_buttons_mobile {
+  display: none;
+}
 
 @media only screen and (max-width: 800px) {
   #employee_table_desktop_screen {
@@ -257,5 +266,27 @@ table.table .avatar {
   }
   .table-wrapper {
     min-width: 100%;
+  }
+  .for_mobile {
+    display: unset;
+  }
+  .for_desktop {
+    display: none;
+  }
+  .col {
+    flex-basis: unset;
+  }
+  #title_ddm {
+    padding-top: 5px;
+  }
+  #title_buttons_mobile {
+    display: unset;
+  }
+  #title_buttons {
+    display: none;
+  }
+  #titleIcons {
+    padding-top: 0px;
+    padding-bottom: 5px;
   }
 }

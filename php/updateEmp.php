@@ -1,8 +1,8 @@
 <?php
 include(dirname(__DIR__) . '/php/dbConnection.php');
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
 
 //values passed from ajax
 $id             = $_POST['staffID'];
