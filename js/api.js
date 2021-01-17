@@ -93,16 +93,16 @@ const depDropDownAJAX = (depID) => {
         // },
             
         success: function(result) {
-            //console.log(result);   //Bug Testing
+            console.log(result);   //Bug Testing
 
             // Ternary sets selected option per staff member based on their department and jobtitle
             let dropdownDepartments;
             dropdownDepartments += `<option value="" class="dropdown-list-item">Department</option>`
-            for(i=0; i < result['departments'].length; i++) {
+            for(i=0; i < result['depAndLocation'].length; i++) {
                 //If depID matches then dropdown Menu will default to that option in the list
-                result['departments'][i]['depID'] == depID ?
-                dropdownDepartments += `<option selected="selected" value="${result['departments'][i]['depID']}" class="dropdown_list_departments" required>${result['departments'][i]['department']}</option>`:
-                dropdownDepartments += `<option value="${result['departments'][i]['depID']}" name="${result['departments'][i]['depID']}" class="dropdown_list_departments" required>${result['departments'][i]['department']}</option>`
+                result['depAndLocation'][i]['depID'] == depID ?
+                dropdownDepartments += `<option selected="selected" value="${result['depAndLocation'][i]['depID']}" class="dropdown_list_departments" required>${result['depAndLocation'][i]['depName']} @ ${result['depAndLocation'][i]['locName']}</option>`:
+                dropdownDepartments += `<option value="${result['depAndLocation'][i]['depID']}" name="${result['depAndLocation'][i]['depID']}" class="dropdown_list_departments" required>${result['depAndLocation'][i]['depName']} @ ${result['depAndLocation'][i]['locName']}</option>`
             }
 
             let dropdownName;
