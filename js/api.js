@@ -407,7 +407,7 @@ $(function () {
         error: function(xhr, status, error){
             var errorMessage = `editLocDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
             console.log(errorMessage);
-            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please <a href="#" onclick="window.location.reload()">Refresh</a> and Try Again.')
             }
     })
 
@@ -432,14 +432,14 @@ const deleteLocationAjax =(locID) => {
               result['message'] == 'PlaceInUse'      ? $('#edit_loc_DB_message').html('Can Not Delete. ' + count + ' staff are assigned this location') :
               result['message'] == 'EmptyString'     ? $('#edit_loc_DB_message').html('Error Empty Input Received.') :
               result['message'] == 'LocationNoExist' ? $('#edit_loc_DB_message').html('Location not found on Database.')
-                                                     : $('#edit_loc_DB_message').html('Location been Deleted, Please Refresh The Page.') 
+                                                     : $('#edit_loc_DB_message').html('Location been Deleted, Please <a href="#" onclick="window.location.reload()">Refresh</a> The Page.') 
 
         },
         
         error: function(xhr, status, error){
             var errorMessage = `deleteLocationAjax Error: ${xhr.status} : ${xhr.statusText}. ${status}`
             console.log(errorMessage);
-            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            $('#edit_loc_DB_message').html('Sorry that input caused an Error. Please <a href="#" onclick="window.location.reload()">Refresh</a> and Try Again.')
             }
     })
 
@@ -476,7 +476,7 @@ $(function () {
         error: function(xhr, status, error){
             var errorMessage = `editDepDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
             console.log(errorMessage);
-            $('#edit_dep_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            $('#edit_dep_DB_message').html('Sorry that input caused an Error. Please <a href="#" onclick="window.location.reload()">Refresh</a> and Try Again.')
             }
     })
 
@@ -508,7 +508,7 @@ const deleteDepartmentAjax = (depID) => {
         error: function(xhr, status, error){
             var errorMessage = `editLocDBForm Error: ${xhr.status} : ${xhr.statusText}. ${status}`
             console.log(errorMessage);
-            $('#edit_Dep_DB_message').html('Sorry that input caused an Error. Please Refresh and Try Again.')
+            $('#edit_Dep_DB_message').html('Sorry that input caused an Error. Please <a href="#" onclick="window.location.reload()">Refresh</a> and Try Again.')
             },
     })
 }
