@@ -97,7 +97,7 @@ const depDropDownAJAX = (depID) => {
 
             // Ternary sets selected option per staff member based on their department and jobtitle
             let dropdownDepartments;
-            dropdownDepartments += `<option value="" class="dropdown-list-item">Department</option>`
+            dropdownDepartments += `<option value="" class="dropdown-list-item">Select Department</option>`
             for(i=0; i < result['depAndLocation'].length; i++) {
                 //If depID matches then dropdown Menu will default to that option in the list
                 result['depAndLocation'][i]['depID'] == depID ?
@@ -106,7 +106,7 @@ const depDropDownAJAX = (depID) => {
             }
 
             let dropdownName;
-            dropdownName += `<option value="dropdown_start" class="dropdown-list-item">Employee</option>`
+            dropdownName += `<option value="dropdown_start" class="dropdown-list-item">Select Employee</option>`
             for(i=0; i < result['personnel'].length; i++) {
                 dropdownName += `<option value="${result['personnel'][i]['id']}" class="dropdown-list-item">${[result['personnel'][i]['lastName'],result['personnel'][i]['firstName']]}</option>`
             }
@@ -117,7 +117,7 @@ const depDropDownAJAX = (depID) => {
             $('.ddmTitle').html(dropdownDepartments)
 
             $('#edit_DB_button').html(`
-            <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="editDepDbAJAX()"><i class="material-icons" >create</i> <span>Edit Dep DB</span></a>
+            <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="editDepDbAJAX()"><i class="material-icons" >create</i> <span>Edit Departments</span></a>
           `)
           $('#edit_DB_button_mobile').html(`
           <a href="#edit_dep_DB_modal" id="#" class="btn btn-success" data-toggle="modal" onClick="editDepDbAJAX()"><i class="material-icons" >create</i></a>
@@ -205,7 +205,7 @@ const locDropDownAJAX = (call) => {
             $('.ddmTitle').html(dropdownLocations)
             $('#ddm_edit_dep_DB').html(dropdownLocations)
             $('#edit_DB_button').html(`
-              <a href="#edit_loc_DB_modal" id="#"class="btn btn-success" data-toggle="modal" onClick="locDropDownAJAX('editDB')"><i class="material-icons" >create</i> <span>Edit Loc DB</span></a>
+              <a href="#edit_loc_DB_modal" id="#"class="btn btn-success" data-toggle="modal" onClick="locDropDownAJAX('editDB')"><i class="material-icons" >create</i> <span>Edit Locations</span></a>
             `)
             $('#edit_DB_button_mobile').html(`
               <a href="#edit_loc_DB_modal" id="#"class="btn btn-success" data-toggle="modal" onClick="locDropDownAJAX('editDB')"><i class="material-icons" >create</i></a>
